@@ -51,7 +51,7 @@ sudo ./usb-wakeup-disable.sh [OPTIONS]
 
 ### Using the TUI
 
-<img width="640" height="342" alt="image" src="https://github.com/user-attachments/assets/0c1206bd-59de-4c36-8b5e-ddd145fd5a8b" />
+<img width="652" height="329" alt="image" src="https://github.com/user-attachments/assets/412407d9-22c6-479a-b083-486bbd99a1a3" />
 
 1. Launch the script.
 2. Use the **Up/Down Arrow** keys to navigate the list of connected devices.
