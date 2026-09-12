@@ -51,6 +51,8 @@ sudo ./usb-wakeup-disable.sh [OPTIONS]
 
 ### Using the TUI
 
+<img width="646" height="355" alt="image" src="https://github.com/user-attachments/assets/d6539a7b-1967-44fe-b81e-952c4d18cbc2" />
+
 1. Launch the script.
 2. Use the **Up/Down Arrow** keys to navigate the list of connected devices.
 3. Press **Space** to toggle the selection. Devices that are *checked* will have their wakeup
