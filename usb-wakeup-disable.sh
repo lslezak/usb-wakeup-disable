@@ -84,7 +84,8 @@ if [[ -f "$UDEV_FILE" ]]; then
         [[ "$serial" == "0" ]] && serial=""
 
         if [[ -n "$vid" && -n "$pid" ]]; then
-            tag="${vid}:${pid}:${serial}"
+            tag="${vid}:${pid}"
+            [[ -n "$serial" ]] && tag+=" (SN: ${serial})"
             current_config["$tag"]=1
         fi
     done < "$UDEV_FILE"
@@ -204,7 +205,11 @@ for dev in /sys/bus/usb/devices/*; do
         # Normalize dummy serial numbers for active parsing
         [[ "$cser" == "0" ]] && cser=""
 
-        if [[ -n "${current_config[${cvid}:${cpid}:${cser}]}" || -n "${current_config[${cvid}:${cpid}:]}" ]]; then
+        ctag="${cvid}:${cpid}"
+        [[ -n "$cser" ]] && ctag+=" (SN: ${cser})"
+        ctag_no_serial="${cvid}:${cpid}"
+
+        if [[ -n "${current_config[$ctag]}" || -n "${current_config[$ctag_no_serial]}" ]]; then
             echo "enabled" > "$dev/power/wakeup" 2>/dev/null || true
         fi
     fi
@@ -230,8 +235,17 @@ mapfile -t choices <<< "$choices_raw"
 for choice in "${choices[@]}"; do
     [[ -z "$choice" ]] && continue
 
-    # Split VID, PID, SERIAL
-    IFS=':' read -r vid pid serial <<< "$choice"
+    # Parse VID, PID, and optional SERIAL from the tag
+    vid=""
+    pid=""
+    serial=""
+    if [[ "$choice" =~ ^([^:]+):([^[:space:]]+)( \(SN: (.*)\))?$ ]]; then
+        vid="${BASH_REMATCH[1]}"
+        pid="${BASH_REMATCH[2]}"
+        serial="${BASH_REMATCH[4]}"
+    else
+        continue
+    fi
 
     # Generate udev rule
     rule="ACTION==\"add\", SUBSYSTEM==\"usb\", ATTR{idVendor}==\"$vid\", ATTR{idProduct}==\"$pid\""
