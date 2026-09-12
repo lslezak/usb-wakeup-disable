@@ -112,7 +112,8 @@ for dev in /sys/bus/usb/devices/*; do
     # Normalize dummy serial numbers
     [[ "$serial" == "0" ]] && serial=""
 
-    tag="${vid}:${pid}:${serial}"
+    tag="${vid}:${pid}"
+    [[ -n "$serial" ]] && tag+=" (SN: ${serial})"
 
     # Deduplicate identical devices missing serial numbers
     if [[ -n "${seen_devices[$tag]}" ]]; then
@@ -139,7 +140,6 @@ for dev in /sys/bus/usb/devices/*; do
     [[ $show_device -eq 0 ]] && continue
 
     desc="${manufacturer} ${product}"
-    [[ -n "$serial" ]] && desc+=" (SN: ${serial})"
     [[ -z "${desc// /}" ]] && desc="Unknown Device"
 
     device_descs["$tag"]="$desc"
