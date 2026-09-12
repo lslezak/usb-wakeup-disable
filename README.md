@@ -1,5 +1,7 @@
 # USB Wakeup Configuration Tool
 
+[![CI](https://github.com/lslezak/usb-wakeup-disable/actions/workflows/ci.yml/badge.svg)](https://github.com/lslezak/usb-wakeup-disable/actions/workflows/ci.yml)
+
 ## Overview
 
 The **USB Wakeup Configuration Tool** (`usb-wakeup-disable.sh`) is a system administration utility

@@ -5,7 +5,7 @@ shellcheck:
 	shellcheck usb-wakeup-disable.sh
 
 check-format:
-	shfmt -i 2 -sr usb-wakeup-disable.sh
+	shfmt -i 2 -sr -d usb-wakeup-disable.sh
 
 format:
 	shfmt -i 2 -sr -w usb-wakeup-disable.sh
