@@ -1,0 +1,44 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      # NOTE: GitHub Actions do not allow using YAML references, the same path
+      # list is used below for the pull request event. Keep both lists in sync!!
+
+      # this file as well
+      - .github/workflows/ci.yml
+      - "*.sh"
+
+  pull_request:
+    paths:
+      # NOTE: GitHub Actions do not allow using YAML references, the same path
+      # list is used above for the push event. Keep both lists in sync!!
+
+      # this file as well
+      - .github/workflows/ci.yml
+      - "*.sh"
+
+  # allow running manually
+  workflow_dispatch:
+
+jobs:
+  live_tests:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Git Checkout
+      uses: actions/checkout@v7
+
+    - name: Install tools
+      run: sudo apt-get install shfmt
+
+    - name: Run shellcheck
+      run: make shellcheck
+
+    - name: Run shfmt
+      run: make check-format
