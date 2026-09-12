@@ -5,7 +5,7 @@
 The **USB Wakeup Configuration Tool** (`usb-wakeup-disable.sh`) is a system administration utility
 designed to selectively disable ACPI wakeup functionality for USB devices in Linux.
 
-It is particularly useful for preventing rogue USB devices (such as overly sensitive mice or
+It is particularly useful for preventing some USB devices (such as overly sensitive mice or
 keyboards) from waking a Linux system from sleep/suspend states. The tool provides a user-friendly
 Terminal User Interface (TUI) to select devices and automatically generates persistent `udev` rules
 to ensure the configuration survives reboots and device replugging.
@@ -29,8 +29,8 @@ to ensure the configuration survives reboots and device replugging.
   `/etc/udev/rules.d/`.
 - **Dependencies**: 
   - `bash`
-  - `dialog` (Must be installed via your distribution's package manager, e.g., `apt install dialog`
-    or `dnf install dialog`)
+  - `dialog` (Must be installed via your distribution's package manager, e.g., `apt install dialog`,
+    `dnf install dialog` or `zypper install dialog`)
   - `udev` subsystem
 
 ## Usage
